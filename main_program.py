@@ -1,6 +1,7 @@
 ## здесь соберем все воедино
 import acrcloud_api
 import vk_api
+import record
 
 # авторизовываемся в вк
 api = vk_api.authorization(access_token=vk_api.access_token)
@@ -8,7 +9,9 @@ api = vk_api.authorization(access_token=vk_api.access_token)
 # получаем путь к файлу от алексы...
 
 #но пока стандартный
-music_file_path = '/Users/akupriyanov/Desktop/icon_hack/englishman.mp3'
+
+music_file_path = '/Users/Roman/Desktop/Git/icon_hack/wave.mp3' # запись в файл wave.mp3
+record.record_to_file(music_file_path) # запись с микрофона
 
 # обрабатываем его через acrcloud_api
 responce = acrcloud_api.get_responce(config=acrcloud_api.config, music_file_path=music_file_path, start_seconds=3)
