@@ -10,7 +10,7 @@ api = vk_api.authorization(access_token=vk_api.access_token)
 
 #но пока стандартный
 
-music_file_path = '/Users/Roman/Desktop/Git/icon_hack/wave.mp3' # запись в файл wave.mp3
+music_file_path = '/Users/Roman/Desktop/Git/icon_hack/demo.mp3' # запись в файл wave.mp3
 record.record_to_file(music_file_path) # запись с микрофона
 
 # обрабатываем его через acrcloud_api
