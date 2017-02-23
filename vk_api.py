@@ -1,17 +1,18 @@
 #sudo pip install vk
 import vk
+import os
+import time
 
 
 # я зарегистрировал бота и получил для него уникальный токен, через который есть полный доступ к его страничке
 # через апишку
-# login: +7 999 8502068
+# login: +7 9102953174
 # password: icon_hack
-session = vk.Session(access_token='81628d12d01aba9628dc7563b5e0d5d8bbecfef39d419e15bf465aac260a2af4cc18fa5f7d76a1395d464')
+session = vk.Session(access_token='7ed035e2cbd922d9facfd285942094f88ec7edc81a54c318546e328520b28b0136d9aa765b14109e71351')
 api = vk.API(session)
 
-# пишет на стене сообщение
-api.wall.post(message = 'Hello, World!')
-#profiles = api.users.get(user_id=62811131)
-#print(profiles[0]['first_name']+' '+profiles[0]['last_name'])
 
-api.messages.send(user_id=62811131, message='hello!')
+time.sleep(1)
+
+# пишем сообщение
+api.messages.send(user_id=109876568, message='это сообщение отправлено через api vk на python :)')
