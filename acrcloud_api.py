@@ -18,11 +18,57 @@ config = {
     'timeout': 10  # seconds
 }
 
-music_file_path = '/Users/akupriyanov/Desktop/icon_hack/Oxxxymiron.mp3'
+music_file_path = '/Users/akupriyanov/Desktop/icon_hack/englishman.mp3'
 
-recognizer = ACRCloudRecognizer(config)
-responce = recognizer.recognize_by_file(file_path=music_file_path, start_seconds=3)
-print(responce)
-responce = recognizer.recognize_by_file(file_path='/Users/akupriyanov/Desktop/icon_hack/englishman.mp3', start_seconds=3)
-print(responce)
+def get_responce(config, music_file_path, start_seconds=3):
+    recognizer = ACRCloudRecognizer(config)
+    # responce = recognizer.recognize_by_file(file_path='/Users/akupriyanov/Desktop/icon_hack/Oxxxymiron.mp3', start_seconds=3)
+    responce = recognizer.recognize_by_file(file_path=music_file_path, start_seconds=start_seconds)
+    return responce
 
+
+def parce_responce(response):
+    print(response)
+    split_responce = response.split(':')
+    arr_responce = []
+    for i, element_responce in enumerate(split_responce):
+        arr_responce += element_responce.split(',')
+
+    print(arr_responce)
+    is_find = True
+
+    for i, element_responce in enumerate(arr_responce):
+        if 'msg' in element_responce:
+            if 'Success' in arr_responce[i + 1]:
+                print("Я нашел и начинаю парсинг!")
+                break
+            else:
+                print("Я не нашел:(")
+                is_find = False
+                break
+
+    title, artist = None, None
+
+    if is_find:
+        for i, element_responce in enumerate(arr_responce):
+            if 'title' in element_responce:
+                title = arr_responce[i + 1]
+                title = ''.join(
+                    list(
+                        filter(
+                            lambda ch: ch not in "?.!/;:\\\"'{[]}", title)
+                    )
+                )
+            if 'artists' in element_responce  and 'name' in arr_responce[i + 1]:
+                artist = arr_responce[i + 2]
+                artist = ''.join(
+                    list(
+                        filter(
+                            lambda ch: ch not in "?.!/;:\\\"'{[]}", artist)
+                    )
+                )
+
+    return (title, artist)
+
+
+print(parce_responce(get_responce(config, music_file_path, 3)))
