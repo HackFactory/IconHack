@@ -28,13 +28,13 @@ def get_responce(config, music_file_path, start_seconds=3):
 
 
 def parce_responce(response):
-    print(response)
+    #print(response)
     split_responce = response.split(':')
     arr_responce = []
     for i, element_responce in enumerate(split_responce):
         arr_responce += element_responce.split(',')
 
-    print(arr_responce)
+    #print(arr_responce)
     is_find = True
 
     for i, element_responce in enumerate(arr_responce):
@@ -69,6 +69,3 @@ def parce_responce(response):
                 )
 
     return (title, artist)
-
-
-print(parce_responce(get_responce(config, music_file_path, 3)))
