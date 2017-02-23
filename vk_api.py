@@ -1,5 +1,6 @@
 #sudo pip install vk
 import vk
+import time
 
 # я зарегистрировал бота и получил для него уникальный токен, через который есть полный доступ к его страничке
 # через апишку
@@ -17,5 +18,9 @@ def send_message(api, user_id, message):
     # пишем сообщение
     api.messages.send(user_id=user_id, message=message)
 
-def generate_pattern_string():
-    pass
+api = authorization(access_token)
+#messages = api.messages.getHistory(user_id=119012868)
+#print(messages# )
+ts = api.messages.getLongPollServer()['ts']
+time.sleep(10)
+print(api.messages.getLongPollHistory(ts=ts))

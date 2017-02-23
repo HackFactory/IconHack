@@ -10,7 +10,7 @@ api = vk_api.authorization(access_token=vk_api.access_token)
 
 #но пока стандартный
 
-music_file_path = '/Users/Roman/Desktop/Git/icon_hack/demo.mp3' # запись в файл wave.mp3
+music_file_path = '/Users//Desktop/Git/icon_hack/demo.mp3' # запись в файл wave.mp3
 record.record_to_file(music_file_path) # запись с микрофона
 
 # обрабатываем его через acrcloud_api
@@ -20,4 +20,4 @@ title, artist = acrcloud_api.parce_responce(responce)
 # отправляем шаблонную строку в вк
 pattern_string = "Это песня " + title + " исполнителя " + artist + "!"
 # еще хз как выбирать юзера, поэтому отправляю себе
-vk_api.send_message(api=api, user_id=62811131, message=pattern_string)
+#vk_api.send_message(api=api, user_id=62811131, message=pattern_string)
