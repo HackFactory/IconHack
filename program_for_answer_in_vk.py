@@ -4,6 +4,7 @@ import vk_api
 import time
 import urllib.request
 import os
+import parsing
 
 # авторизовываемся в вк
 api = vk_api.authorization(access_token=vk_api.access_token)
@@ -33,17 +34,17 @@ while True:
                                                  start_seconds=3)
             #возвращаем ответ
             title, artist = acrcloud_api.parce_responce(responce)
-
+            print(title, artist)
             #если не нашли ответ
             if title is None and artist is None:
                 pattern_string = "Увы, я не нашел:("
                 vk_api.send_message(api=api, user_id=user_id, message=pattern_string)
             else:
-                pattern_string = "Это песня " + title + " исполнителя " + artist + "!"
-                # тут добавить ссылку
+                yandex_music_ref = parsing.get_ref(title, artist)
+                pattern_string = "Это песня " + title + " исполнителя " + artist + "!\n" + "Ссылка на Яндекс.Музыку " + yandex_music_ref
                 vk_api.send_message(api=api, user_id=user_id, message=pattern_string)
 
-            os.remove(music_file_path)т
+            os.remove(music_file_path)
         api.messages.markAsRead(message_ids=message_id)
 
     ts = api.messages.getLongPollServer()['ts']
