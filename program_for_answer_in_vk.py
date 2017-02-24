@@ -31,7 +31,7 @@ while True:
             #распознаем его
             music_file_path = './' + str(message_id) + 'responce.mp3'
             responce = acrcloud_api.get_responce(config=acrcloud_api.config, music_file_path=music_file_path,
-                                                 start_seconds=3)
+                                                 start_seconds=1)
             #возвращаем ответ
             title, artist = acrcloud_api.parce_responce(responce)
             print(title, artist)
@@ -40,12 +40,14 @@ while True:
                 pattern_string = "Увы, я не нашел:("
                 vk_api.send_message(api=api, user_id=user_id, message=pattern_string)
             else:
+                pattern_string = "Это песня " + title + " исполнителя " + artist + "!\n"
+                vk_api.send_message(api=api, user_id=user_id, message=pattern_string)
                 yandex_music_ref = parsing.get_ref(title, artist)
                 if yandex_music_ref == -1: # если песня распозналась, но ее нет в Я.Музыке
-                    pattern_string = "Это песня " + title + " исполнителя " + artist + "!\n"
+                    pass
                 else:
-                    pattern_string = "Это песня " + title + " исполнителя " + artist + "!\n" + "Ссылка на Яндекс.Музыку " + yandex_music_ref
-                vk_api.send_message(api=api, user_id=user_id, message=pattern_string)
+                    pattern_string = "Ссылка на Яндекс.Музыку " + yandex_music_ref
+                    vk_api.send_message(api=api, user_id=user_id, message=pattern_string)
 
             os.remove(music_file_path)
         else:

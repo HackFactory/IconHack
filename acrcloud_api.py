@@ -6,8 +6,7 @@ import vk
 from acrcloud.recognizer import ACRCloudRecognizer
 
 # конфиг стандартный, я зарегистрировал аккаунт на acrcloud.com
-# login: kupriyanovartem@yandex.ru
-# password: M4E-HrQ-kCp-MRQ
+
 # интсрукция по заведению нового инстанса есть в мануале на гитхабе, но кажется, нам и с такими ключами хватит
 
 config = {

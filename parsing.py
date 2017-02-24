@@ -7,7 +7,7 @@ page_pattern = "https://music.yandex.ru"
 class PARSERYANDEXMUSIC:
     page_pattern = "https://music.yandex.ru/search?text="
 
-    def __init__(self, title, artist, driver_path='/Users/Roman/Desktop/Git/icon_hack/chromedriver'): # адрес в твоем ноуте
+    def __init__(self, title, artist, driver_path='/Users/akupriyanov/Desktop/Python/chromedriver'): # адрес в твоем ноуте
         title = title.replace(" ","%20")
         title = title.lower()
         self.title = title

@@ -1,2 +1,2 @@
-token = "350571452:AAFUfMtsG_brLlU2Mf01MGPWDS9xwLJmzhY"
+token = "****************************************"
 audio_dir = 'demo.ogg'
