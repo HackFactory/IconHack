@@ -41,11 +41,15 @@ class PARSERYANDEXMUSIC:
 
 def get_ref(title, artist):
     parser = PARSERYANDEXMUSIC(title=title, artist=artist)
-    song = parser.run()[0]
-    song = str(song)
-    start = song.find("/album")
-    end = song.find("\" title")
-    ref = song[start:end]
-    return page_pattern+ref
+    array_of_songs = parser.run()
+    if len(array_of_songs) == 0:
+        return -1
+    else:
+        song = array_of_songs[0]
+        song = str(song)
+        start = song.find("/album")
+        end = song.find("\" title")
+        ref = song[start:end]
+        return page_pattern+ref
 
 #print(get_ref(title="do i wanna know", artist="arctic monkeys"))

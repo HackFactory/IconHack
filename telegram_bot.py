@@ -3,9 +3,11 @@ import telegram_bot_config
 import acrcloud_api
 import parsing
 
+# в файле telegram_bot_config.py - уникальный токен бота
 
 bot = telebot.TeleBot(telegram_bot_config.token)
 
+# декоратор функции (если приходит голосовое сообщение)
 @bot.message_handler(content_types=["voice"])
 def listener(message):
     file_id = message.voice.file_id
@@ -26,13 +28,17 @@ def listener(message):
                 bot.send_message(message.chat.id, pattern_string)
             else:
                 yandex_music_ref = parsing.get_ref(title, artist)
-                pattern_string = "Это песня " + title + " исполнителя " + artist + "!\n" + "Ссылка на Яндекс.Музыку " + yandex_music_ref
+                if yandex_music_ref == -1: # если песня распозналась, но ее нет в Я.Музыке
+                    pattern_string = "Это песня " + title + " исполнителя " + artist + "!\n"
+                else:
+                    pattern_string = "Это песня " + title + " исполнителя " + artist + "!\n" + "Ссылка на Яндекс.Музыку " + yandex_music_ref
                 bot.send_message(message.chat.id, pattern_string)
 
     except NameError:
         pass
 
-@bot.message_handler(content_types=["audio", "text"])
+# если мы кидаем аудиофайл
+@bot.message_handler(content_types=["audio"])
 def listener(message):
     file_id = message.audio.file_id
     file_info = bot.get_file(file_id)
@@ -47,18 +53,22 @@ def listener(message):
             responce = acrcloud_api.get_responce(config=acrcloud_api.config, music_file_path=music_file_path,
                                                  start_seconds=3)
             title, artist = acrcloud_api.parce_responce(responce)
+            print(title, artist)
             if title is None and artist is None:
                 pattern_string = "Увы, я не нашел:("
                 bot.send_message(message.chat.id, pattern_string)
             else:
                 yandex_music_ref = parsing.get_ref(title, artist)
-                pattern_string = "Это песня " + title + " исполнителя " + artist + "!\n" + "Ссылка на Яндекс.Музыку " + yandex_music_ref
+                if yandex_music_ref == -1: # если песня распозналась, но ее нет в Я.Музыке
+                    pattern_string = "Это песня " + title + " исполнителя " + artist + "!\n"
+                else:
+                    pattern_string = "Это песня " + title + " исполнителя " + artist + "!\n" + "Ссылка на Яндекс.Музыку " + yandex_music_ref
                 bot.send_message(message.chat.id, pattern_string)
 
     except NameError:
         pass
 
-
+# если просто пишем ему
 @bot.message_handler(content_types=["text"])
 def listener(message):
     bot.send_message(message.chat.id, "Отправьте мне аудиофайл или запись песни :)")

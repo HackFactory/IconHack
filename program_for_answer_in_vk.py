@@ -41,10 +41,16 @@ while True:
                 vk_api.send_message(api=api, user_id=user_id, message=pattern_string)
             else:
                 yandex_music_ref = parsing.get_ref(title, artist)
-                pattern_string = "Это песня " + title + " исполнителя " + artist + "!\n" + "Ссылка на Яндекс.Музыку " + yandex_music_ref
+                if yandex_music_ref == -1: # если песня распозналась, но ее нет в Я.Музыке
+                    pattern_string = "Это песня " + title + " исполнителя " + artist + "!\n"
+                else:
+                    pattern_string = "Это песня " + title + " исполнителя " + artist + "!\n" + "Ссылка на Яндекс.Музыку " + yandex_music_ref
                 vk_api.send_message(api=api, user_id=user_id, message=pattern_string)
 
             os.remove(music_file_path)
+        else:
+            welcome_string = "Hi! You can send me voice message and i will tell you what song is it :)"
+            vk_api.send_message(api=api, user_id=user_id, message=welcome_string)
         api.messages.markAsRead(message_ids=message_id)
 
     ts = api.messages.getLongPollServer()['ts']
